@@ -93,6 +93,44 @@ namespace JpT.Logic
             dAO.UpdateWordHardAndLock(dataEntity);
         }
 
+        public void UpdateWordTypeOfWordBook()
+        {
+            List<WordEntity> dataEntity = dAO.GetAllWordEntity();
+            dataEntity.ForEach(x =>
+            {
+                if (string.IsNullOrEmpty(x.WordType) && x.Type == "TV" && !string.IsNullOrEmpty(x.Hiragana))
+                {
+                    if (x.Hiragana.EndsWith("い") && x.Kanji.EndsWith("い"))
+                    {
+                        x.WordType = "A";
+                    }
+                    else if (x.Hiragana.EndsWith("(な)") && x.Kanji.EndsWith("(な)"))
+                    {
+                        x.WordType = "A";
+                    }
+                    else if (x.Hiragana.EndsWith("ます")
+                        || x.Kanji.EndsWith("る")
+                        || x.Kanji.EndsWith("す")
+                        || x.Kanji.EndsWith("く")
+                        || x.Kanji.EndsWith("う")
+                        || x.Kanji.EndsWith("つ"))
+                    {
+                        x.WordType = "V";
+                    }
+                    else if (!string.IsNullOrEmpty(x.Kanji) && x.Hiragana.Substring(x.Hiragana.Length - 1, 1).Equals(x.Kanji.Substring(x.Kanji.Length - 1, 1)))
+                    {
+                        x.WordType = "O";
+                    }
+                    else
+                    {
+                        x.WordType = "N";
+                    }
+                }
+            });
+
+            dAO.UpdateWordType(dataEntity);
+        }
+
         public void UpdateWordLastLearn(ObservableCollection<WordModel> listWord)
         {
             List<WordEntity> dataEntity = new List<WordEntity>();

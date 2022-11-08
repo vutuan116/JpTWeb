@@ -424,6 +424,8 @@ namespace JpT
 
         private void btnGenJson_Click(object sender, RoutedEventArgs e)
         {
+            _logic.UpdateWordTypeOfWordBook();
+
             JavaScriptSerializer jsSer = new JavaScriptSerializer();
             List<TuVungJson> tuVungData = new List<TuVungJson>();
             List<KanjiJson> kanjiData = new List<KanjiJson>();
@@ -439,7 +441,7 @@ namespace JpT
                         List<WordModel> wordList = _logic.GetListWordByLesson(new List<LessonModel>() { lesson }, StartModeEnum.ViewListWord, false);
                         wordList.ForEach(word =>
                         {
-                            tuVung.Data.Add(new TuVungItem() { Hira = word.Hiragana, Kanji = word.Kanji, Mean = word.Mean });
+                            tuVung.Data.Add(new TuVungItem() { Id = word.Id, Type = word.WordType, Hira = word.Hiragana, Kanji = word.Kanji, Mean = word.Mean });
                         });
                         tuVungData.Add(tuVung);
                     }
@@ -449,7 +451,7 @@ namespace JpT
                         List<WordModel> wordList = _logic.GetListWordByLesson(new List<LessonModel>() { lesson }, StartModeEnum.ViewListWord, false);
                         wordList.ForEach(word =>
                         {
-                            kanji.Data.Add(new KanjiItem() { Hira = word.Hiragana, Kanji = word.Kanji, CnVi = word.CnVi, Mean = word.Mean });
+                            kanji.Data.Add(new KanjiItem() { Id = word.Id, Hira = word.Hiragana, Kanji = word.Kanji, CnVi = word.CnVi, Mean = word.Mean });
                         });
                         kanjiData.Add(kanji);
                     }
@@ -476,6 +478,8 @@ namespace JpT
 
     public class TuVungItem
     {
+        public int Id { get; set; }
+        public string Type { get; set; }
         public string Hira { get; set; }
         public string Kanji { get; set; }
         public string Mean { get; set; }
@@ -490,6 +494,7 @@ namespace JpT
 
     public class KanjiItem
     {
+        public int Id { get; set; }
         public string Hira { get; set; }
         public string Kanji { get; set; }
         public string CnVi { get; set; }

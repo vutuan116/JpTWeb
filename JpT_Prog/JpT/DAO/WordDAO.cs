@@ -120,6 +120,24 @@ namespace JpT.DAO
             }
             _excel.Workbook_Save(Constant.FILE_DATA);
         }
+        
+        public void UpdateWordType(List<WordEntity> listDataEntity)
+        {
+            _excel.ws_GetBySheetIndex(0);
+
+            foreach (WordEntity entity in listDataEntity)
+            {
+                _excel.cell_WriteByIndex(entity.Id, Constant.DATA_COL_WORD_TYPE, entity.WordType);
+
+                int index = _wordOriginal.IndexOf(entity);
+
+                if (index != -1)
+                {
+                    _wordOriginal[index].LastLearn = entity.LastLearn;
+                }
+            }
+            _excel.Workbook_Save(Constant.FILE_DATA);
+        }
 
         public void SaveLevelConfig(LevelEnum level)
         {
@@ -198,6 +216,7 @@ namespace JpT.DAO
                     entity.IsHard = _excel.cell_GetValueByCell(i, Constant.DATA_COL_IS_HARD);
                     entity.Lock = _excel.cell_GetValueByCell(i, Constant.DATA_COL_LOCK);
                     entity.LastLearn = _excel.cell_GetValueByCell(i, Constant.DATA_COL_LAST_LEARN);
+                    entity.WordType = _excel.cell_GetValueByCell(i, Constant.DATA_COL_WORD_TYPE);
                     if (entity.IsEmpty())
                     {
                         continue;

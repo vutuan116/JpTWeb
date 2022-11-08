@@ -25,6 +25,7 @@ namespace JpT.Logic
         public static readonly int DATA_COL_IS_HARD = 9;
         public static readonly int DATA_COL_LOCK = 10;
         public static readonly int DATA_COL_LAST_LEARN = 11;
+        public static readonly int DATA_COL_WORD_TYPE = 12;
 
         public static readonly int CONFIG_COL_NAME = 2;
         public static readonly int CONFIG_COL_LAST_LEARN = 3;

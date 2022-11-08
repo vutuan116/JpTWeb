@@ -16,6 +16,7 @@ namespace JpT.Entity
         public string IsHard { get; set; }
         public string Lock { get; set; }
         public string LastLearn { get; set; }
+        public string WordType { get; set; }
 
         public bool IsEmpty()
         {
@@ -60,7 +61,8 @@ namespace JpT.Entity
                 IsHard = !string.IsNullOrEmpty(this.IsHard),
                 IsLock = !string.IsNullOrEmpty(this.Lock),
                 LastLearn = lastLearn,
-                IsRepeat = false
+                IsRepeat = false,
+                WordType = this.WordType
             };
         }
     }

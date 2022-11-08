@@ -15,6 +15,7 @@ namespace JpT.Model
         private bool _isHard = false;
         private bool _islock = false;
         private DateTime _lastLearn;
+        private string _wordType = string.Empty;
         private bool _isRepeat = false;
         /*===============================================================*/
         public bool IsDisplayed { get; set; }
@@ -142,6 +143,16 @@ namespace JpT.Model
                 if (_lastLearn == value) return;
                 _lastLearn = value;
                 OnPropertyChanged("LastLearn");
+            }
+        }
+        public string WordType
+        {
+            get { return _wordType; }
+            set
+            {
+                if (_wordType == value) return;
+                _wordType = value;
+                OnPropertyChanged("WordType");
             }
         }
 
